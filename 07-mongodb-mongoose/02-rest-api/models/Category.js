@@ -17,4 +17,10 @@ const categorySchema = new mongoose.Schema({
   subcategories: [subCategorySchema],
 });
 
+
+categorySchema.pre('save', function(next) {
+  this.id = this._id;
+  next();
+});
+
 module.exports = connection.model('Category', categorySchema);
