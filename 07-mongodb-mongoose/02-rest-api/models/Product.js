@@ -6,12 +6,13 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-
   description: {
     type: String,
     required: true,
   },
-
+  id: {
+    type: String
+  },
   price: {
     type: Number,
     required: true,
@@ -32,4 +33,8 @@ const productSchema = new mongoose.Schema({
 
 });
 
+productSchema.pre('save', function(next) {
+  this.id = this._id;
+  next();
+});
 module.exports = connection.model('Product', productSchema);
